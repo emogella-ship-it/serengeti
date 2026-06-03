@@ -712,8 +712,9 @@ h2 {
 }
 
 /* ── WHATSAPP BUTTON ── */
+/* ── WHATSAPP BUTTON ── */
 .whatsapp-btn {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
   width: 60px; height: 60px;
   background: #25d366;
   border-radius: 50%;
@@ -730,18 +731,17 @@ h2 {
 .whatsapp-btn svg { width: 32px; height: 32px; fill: white; }
 
 .whatsapp-tooltip {
-  position: fixed; bottom: 2rem; right: 5.5rem; z-index: 150;
+  position: fixed; bottom: 5.5rem; right: 1.5rem; z-index: 9999;
   background: var(--card); border: 1px solid var(--border);
   border-radius: 10px; padding: 0.6rem 1rem;
   font-size: 0.82rem; color: var(--text);
   white-space: nowrap;
   opacity: 0; pointer-events: none;
-  transform: translateX(8px);
+  transform: translateY(8px);
   transition: all 0.3s;
 }
 .whatsapp-btn:hover ~ .whatsapp-tooltip,
-.whatsapp-tooltip:hover { opacity: 1; transform: translateX(0); }
-
+.whatsapp-tooltip:hover { opacity: 1; transform: translateY(0); }
 @keyframes wa-bounce {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
@@ -932,4 +932,22 @@ body::after {
   opacity: 0.02;
   mix-blend-mode: soft-light;
   pointer-events: none;
+}
+/* ── WHATSAPP FIX ── */
+.whatsapp-btn {
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+}
+
+.whatsapp-tooltip {
+  bottom: 5.5rem;
+  right: 1.5rem;
+  left: auto;
+  transform: translateY(8px);
+}
+
+.whatsapp-btn:hover ~ .whatsapp-tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
