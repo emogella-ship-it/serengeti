@@ -520,7 +520,7 @@ h2 {
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex; align-items: center; justify-content: center;
   font-family: 'Syne', sans-serif;
-  font-size: 2.2rem; font-weight: 800;
+  font-size: 2.0rem; font-weight: 800;
   color: var(--bg);
   margin: 0 auto 1.2rem;
   position: relative;
@@ -529,7 +529,7 @@ h2 {
   content: '';
   position: absolute; inset: -4px;
   border-radius: 50%;
-  border: 2px solid rgba(0,212,255,0.3);
+  border: 1.5px solid rgba(0,212,255,0.3);
   animation: spin-border 6s linear infinite;
 }
 @keyframes spin-border { to { transform: rotate(360deg); } }
