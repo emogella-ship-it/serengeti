@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MogxTech – Expert tech services in Arusha, Tanzania. Phone repairs, PC maintenance, web development, network services and more." />
+  <title>MogxTech | Emmanuel Stanley Mogella – Arusha, Tanzania</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     LIGHTBOX (Gallery Popup)
+══════════════════════════════════ -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <div class="lightbox-emoji" id="lbEmoji">📱</div>
+    <div class="lightbox-title"  id="lbTitle">Service Title</div>
+    <p   class="lightbox-desc"   id="lbDesc">Description goes here.</p>
+    <button class="lightbox-close" onclick="closeLightbox()">✕ Close</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MOBILE MENU
+══════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="close-btn" onclick="toggleMenu()">✕</span>
+  <a href="#hero"         onclick="toggleMenu()">Home</a>
+  <a href="#services"     onclick="toggleMenu()">Services</a>
+  <a href="#gallery"      onclick="toggleMenu()">Gallery</a>
+  <a href="#pricing"      onclick="toggleMenu()">Pricing</a>
+  <a href="#about"        onclick="toggleMenu()">About</a>
+  <a href="#contact"      onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- ══════════════════════════════════
+     NAVBAR
+══════════════════════════════════ -->
+<nav>
+  <a href="#hero" class="logo">Mogx<span>Tech</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🟢 Available for Projects — Arusha, Tanzania</div>
+    <h1>
+      Your Trusted<br>
+      <span class="accent">Tech Partner</span><br>
+      <span class="accent2">in East Africa</span>
+    </h1>
+    <p class="hero-sub">
+      From phone screen replacements to full web development and network infrastructure —
+      MogxTech delivers expert solutions for every tech challenge.
+    </p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact"  class="btn-outline">Get a Free Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" data-target="500" data-suffix="+">500+</span>
+        <span class="stat-label">Devices Repaired</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="8" data-suffix="+">8+</span>
+        <span class="stat-label">Services Offered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="100" data-suffix="%">100%</span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SERVICES
+══════════════════════════════════ -->
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <h2>Our Expert Services</h2>
+  <p class="section-desc">We handle all your tech needs — from quick repairs to complete digital solutions.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card fade-in">
+      <div class="service-icon">📱</div>
+      <h3>Phone Accessories</h3>
+      <p>Quality cases, chargers, earphones,neck pods ,wireless pods, Game Pads 
+        headphones , All Usb Cable Chargers, Phones Batter , Flash Original , Memory Cards Original, Screen protectors and more. Premium accessories for all major brands at affordable prices.</p>
+      <span class="service-tag">Retail</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">🔧</div>
+      <h3>PC Maintenance</h3>
+      <p>Hardware diagnostics, upgrades, cleaning, virus removal, OS installation and full PC servicing to keep your computer running smoothly.</p>
+      <span class="service-tag">Repair</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">📲</div>
+      <h3>Screen Replacement</h3>
+      <p>Cracked or damaged screen? We replace screens for all smartphone brands with genuine-quality parts and a quick turnaround time.</p>
+
+      <p>Battery Replacement Services</p>
+      <p>Software Troubleshooting & OS Reinstallation</p>
+      <p></p>
+      <span class="service-tag">Repair</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">⚡</div>
+      <h3>Charge Port Repair</h3>
+      <p>Phone not charging? We diagnose and fix charging port issues, battery problems and power-related faults professionally.</p>
+      <span class="service-tag">Repair</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">🖥️</div>
+      <h3>System Design</h3>
+      <p>Custom software architecture and system design for businesses — scalable, secure and built for your specific operational needs.</p>
+      <span class="service-tag">Tech</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">🌐</div>
+      <h3>Web Development</h3>
+      <p>Beautiful, responsive websites and web applications built with modern technologies. From landing pages to full business platforms.</p>
+      <span class="service-tag">Digital</span>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-icon">🔌</div>
+      <h3>Network Services</h3>
+      <p>Network setup, configuration, troubleshooting, Wi-Fi optimization and LAN/WAN infrastructure for homes and businesses.</p>
+      <span class="service-tag">Infrastructure</span>
+    </div>
+
+    <div class="service-card fade-in" style="background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(10,245,176,.06));border-color:rgba(0,212,255,.3)">
+      <div class="service-icon">💡</div>
+      <h3>Got a Custom Need?</h3>
+      <p>Don't see what you're looking for? Reach out — if it's tech, we can likely help. We love solving unique challenges.</p>
+      <a href="#contact" class="service-tag" style="text-decoration:none;cursor:pointer;background:rgba(0,212,255,.12)">Talk to Us →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     GALLERY
+══════════════════════════════════ -->
+<section id="gallery">
+  <div class="section-label">Our Work</div>
+  <h2>Services in Action</h2>
+  <p class="section-desc">A visual look at the work we do every day — click any card to learn more.</p>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-item fade-in" onclick="openLightbox(0)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">📱</div>
+        <div class="gallery-label">Phone Screen Replacement</div>
+        <div class="gallery-sub">All brands · Same-day service</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(1)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">💻</div>
+        <div class="gallery-label">PC Maintenance & Repair</div>
+        <div class="gallery-sub">Hardware · Software · Data Recovery</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(2)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">🌐</div>
+        <div class="gallery-label">Web Development</div>
+        <div class="gallery-sub">HTML · CSS · JavaScript · Responsive</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(3)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">🔌</div>
+        <div class="gallery-label">Network Infrastructure</div>
+        <div class="gallery-sub">LAN · Wi-Fi · Security · Cabling</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(4)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">⚡</div>
+        <div class="gallery-label">Charge Port & Battery Repair</div>
+        <div class="gallery-sub">Fast diagnosis · Genuine parts</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(5)">
+      <div class="gallery-inner">
+        <div class="gallery-emoji">🖥️</div>
+        <div class="gallery-label">System Design</div>
+        <div class="gallery-sub">Architecture · Databases · APIs</div>
+      </div>
+      <div class="gallery-overlay">
+        <button class="gallery-view-btn">View Details</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PRICING
+══════════════════════════════════ -->
+<section id="pricing">
+  <div class="section-label">Transparent Pricing</div>
+  <h2>Simple, Fair Prices</h2>
+  <p class="section-desc">No hidden fees. No surprises. Just honest pricing for quality tech services.</p>
+
+  <div class="pricing-grid">
+
+    <!-- REPAIRS -->
+    <div class="pricing-card fade-in">
+      <div class="pricing-icon">🔧</div>
+      <div class="pricing-name">Device Repair</div>
+      <div class="pricing-desc">Quick fixes for phones & computers</div>
+      <div class="pricing-price">From <span>TSh 15,000</span></div>
+      <ul class="pricing-features">
+        <li>Phone screen replacement</li>
+        <li>Charge port repair</li>
+        <li>Battery replacement</li>
+        <li>PC virus removal</li>
+        <li>OS reinstallation</li>
+        <li class="no">Web development</li>
+        <li class="no">Network setup</li>
+      </ul>
+      <a href="#contact" class="pricing-btn">Book Repair</a>
+    </div>
+
+    <!-- DIGITAL — POPULAR -->
+    <div class="pricing-card popular fade-in">
+      <div class="popular-badge">⭐ Most Popular</div>
+      <div class="pricing-icon">🌐</div>
+      <div class="pricing-name">Digital Package</div>
+      <div class="pricing-desc">Web + network for small businesses</div>
+      <div class="pricing-price">From <span>TSh 250,000</span></div>
+      <ul class="pricing-features">
+        <li>Responsive website (5 pages)</li>
+        <li>Contact form integration</li>
+        <li>Mobile-friendly design</li>
+        <li>Basic SEO setup</li>
+        <li>Network configuration</li>
+        <li>Wi-Fi setup & security</li>
+        <li>1 month free support</li>
+      </ul>
+      <a href="#contact" class="pricing-btn">Get Started</a>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="pricing-card fade-in">
+      <div class="pricing-icon">🏢</div>
+      <div class="pricing-name">Enterprise Solution</div>
+      <div class="pricing-desc">Full system design & infrastructure</div>
+      <div class="pricing-price">Custom <span>Quote</span></div>
+      <ul class="pricing-features">
+        <li>Full web application</li>
+        <li>Custom system architecture</li>
+        <li>Database design & setup</li>
+        <li>Complete network infrastructure</li>
+        <li>Staff IT training</li>
+        <li>Ongoing maintenance plan</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#contact" class="pricing-btn">Request Quote</a>
+    </div>
+
+  </div>
+
+  <p class="pricing-note">
+    All prices are starting estimates and may vary by device model or project scope.
+    <a href="#contact">Contact us</a> for an exact quote — it's free and fast.
+  </p>
+</section>
+
+<!-- ══════════════════════════════════
+     ABOUT
+══════════════════════════════════ -->
+<section id="about">
+  <div class="about-layout">
+
+    <div class="about-img-box">
+      <div class="about-card-main fade-in">
+        <div class="avatar-circle">ESM</div>
+        <div class="about-name">Emmanuel Stanley Mogella</div>
+        <div class="about-role">Founder & Lead Technician — MogxTec / EmStanTech</div>
+        <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">
+          Based in Arusha, Tanzania · Serving East Africa
+        </p>
+        <div class="skills-list">
+          <span class="skill-pill">Web Dev</span>
+          <span class="skill-pill">Networking</span>
+          <span class="skill-pill">Hardware</span>
+          <span class="skill-pill">System Design</span>
+          <span class="skill-pill">Mobile Repair</span>
+          <span class="skill-pill">IT Support</span>
+        </div>
+      </div>
+      <div class="about-floating fade-in">
+        <div class="dot"></div>
+        <span>Accepting new clients</span>
+      </div>
+    </div>
+
+    <div class="about-text fade-in">
+      <div class="section-label">About Us</div>
+      <h2>Tech Expertise You Can Actually Trust</h2>
+      <p>
+        EmStanTech — born from the vision of Emmanuel Stanley Mogella — is a technology services
+        company built on the belief that quality tech support should be accessible to everyone in East Africa.
+      </p>
+      <p>
+        Whether you walk in with a cracked phone screen or need a complete business web system designed
+        from scratch, we bring the same dedication and professionalism to every job.
+      </p>
+      <ul class="values-list">
+        <li>Honest diagnostics — we tell you exactly what's wrong and what it costs</li>
+        <li>Fast turnaround — most repairs completed same day</li>
+        <li>Transparent pricing — no hidden fees, ever</li>
+        <li>Warranty on repairs — we stand behind our work</li>
+        <li>Local expertise — we understand East Africa's tech landscape</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Work With Us</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PROCESS
+══════════════════════════════════ -->
+<section id="process">
+  <div class="section-label">How It Works</div>
+  <h2>Simple, Transparent Process</h2>
+  <p class="section-desc">From first contact to finished job — here's what working with EmStanTech looks like.</p>
+
+  <div class="process-steps">
+    <div class="process-step fade-in">
+      <div class="step-num">01</div>
+      <div class="step-icon">📞</div>
+      <h3>Reach Out</h3>
+      <p>Contact us via phone, WhatsApp, or this website and describe your problem.</p>
+      <div class="step-connector"></div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔍</div>
+      <h3>Diagnosis</h3>
+      <p>We assess the issue and give you a clear cost estimate — no surprises.</p>
+      <div class="step-connector"></div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="step-num">03</div>
+      <div class="step-icon">⚙️</div>
+      <h3>We Fix It</h3>
+      <p>Our technicians get to work with precision and care on your device or project.</p>
+      <div class="step-connector"></div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="step-num">04</div>
+      <div class="step-icon">✅</div>
+      <h3>Delivered</h3>
+      <p>You get your solution — tested, guaranteed, and ready to use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════ -->
+<section id="testimonials">
+  <div class="section-label">Client Reviews</div>
+  <h2>What Our Clients Say</h2>
+  <p class="section-desc">Trusted by individuals and businesses across Arusha and beyond.</p>
+
+  <div class="testi-grid">
+
+    <div class="testi-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p>"My phone screen was replaced in under an hour and it looks brand new. Very professional service and fair pricing. Highly recommend EmStanTech!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AK</div>
+        <div>
+          <div class="testi-name">Amina Kijenge</div>
+          <div class="testi-loc">Arusha, Tanzania</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p>"Emmanuel designed our business website and set up our office network. Everything works perfectly. He explained every step clearly — outstanding work!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">JM</div>
+        <div>
+          <div class="testi-name">Joseph Mwanga</div>
+          <div class="testi-loc">Business Owner, Arusha</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p>"My laptop was completely dead. They diagnosed it quickly, fixed the issue and saved all my data. Saved my entire business! Asante sana EmStanTech!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">GN</div>
+        <div>
+          <div class="testi-name">Grace Ngowi</div>
+          <div class="testi-loc">Moshi, Tanzania</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CONTACT
+══════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-layout">
+
+    <div class="contact-info">
+      <div class="section-label">Get In Touch</div>
+      <h2>Let's Solve Your Tech Problem</h2>
+      <p>Fill in the form or reach out directly — we respond within a few hours.</p>
+
+      <div class="contact-item fade-in">
+        <div class="contact-icon">📍</div>
+        <div class="contact-item-text">
+          <small>Location</small>
+          <span>Arusha, Tanzania</span>
+        </div>
+      </div>
+
+      <div class="contact-item fade-in">
+        <div class="contact-icon">📱</div>
+        <div class="contact-item-text">
+          <small>Phone / WhatsApp</small>
+          <span>+255 XXX XXX XXX</span>
+        </div>
+      </div>
+
+      <div class="contact-item fade-in">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-item-text">
+          <small>Email</small>
+          <span>info@emstantech.co.tz</span>
+        </div>
+      </div>
+
+      <div class="contact-item fade-in">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-item-text">
+          <small>Working Hours</small>
+          <span>Mon – Sat: 8:00 AM – 7:00 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form fade-in">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" placeholder="Emmanuel" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" placeholder="Mogella" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" id="phone" placeholder="+255 700 000 000" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select id="service">
+          <option value="">Select a service...</option>
+          <option>Phone Screen Replacement</option>
+          <option>Charge Port / Battery Repair</option>
+          <option>PC Maintenance</option>
+          <option>Web Development</option>
+          <option>Network Services</option>
+          <option>System Design</option>
+          <option>Phone Accessories</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Describe Your Problem</label>
+        <textarea id="message" placeholder="Tell us what's going on with your device or what you need built..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Send Message ✦</button>
+      <div class="success-msg" id="successMsg">
+        ✅ Message sent! We'll contact you within a few hours. Thank you!
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <div>
+    <div class="footer-logo">EmStan<span>Tech</span></div>
+    <p style="margin-top:.4rem">by Emmanuel Stanley Mogella · Arusha, Tanzania</p>
+  </div>
+  <p>© <span id="footerYear">2025</span> EmStanTech / MogxTec. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════
+     WHATSAPP FLOATING BUTTON
+══════════════════════════════════ -->
+<a class="whatsapp-btn"
+   href="https://wa.me/255XXXXXXXXX?text=Hello%20EmStanTech!%20I%20need%20help%20with%20a%20tech%20issue."
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+<div class="whatsapp-tooltip">💬 Chat with us on WhatsApp</div>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script src="script.js"></script>
+
+</body>
+</html>
