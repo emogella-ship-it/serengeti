@@ -47,16 +47,26 @@
       border-color: rgba(0,212,255,0.5);
       box-shadow: 0 12px 32px rgba(0,212,255,0.15);
     }
-    .acc-card img {
-      width:100%; aspect-ratio:1/1; object-fit:cover; display:block;
+    .acc-card-media {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .acc-card-media img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 14px;
       transition: transform 0.4s;
     }
-    .acc-card:hover img { transform: scale(1.08); }
+    .acc-card-media .acc-card-main-img { aspect-ratio: 1/1; }
+    .acc-card-media .acc-card-small-img { aspect-ratio: 3/2; }
+    .acc-card:hover .acc-card-media img { transform: scale(1.05); }
     .acc-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 320px;
+      min-height: 420px;
     }
     .acc-card-label {
       padding:.7rem .8rem;
@@ -204,39 +214,66 @@
     </div>
     <div class="acc-grid">
       <div class="acc-card" onclick="openProduct(0)">
-<img src="images/accessories/battery.jpg" alt="Phone Battery">        <div class="acc-card-label">🔋 Phone Battery</div>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/battery.jpg" alt="Phone Battery">
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Phone Accessories">
+        </div>
+        <div class="acc-card-label">🔋 Phone Battery</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(0)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(1)">
-<img src="images/accessories/chemli.jpg" alt="Chemli">        <div class="acc-card-label">✨ Chemli</div>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/chemli.jpg" alt="Chemli">
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories">
+        </div>
+        <div class="acc-card-label">✨ Chemli</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(1)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(2)">
-<img src="images/accessories/fume-light.jpg" alt="Fume Light">
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/fume-light.jpg" alt="Fume Light">
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories">
+        </div>
         <div class="acc-card-label">💡 Fume Light</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(2)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(3)">
-<img src="images/accessories/stand.jpg" alt="Stand">        <div class="acc-card-label">🖥️ Phone & PC Stand</div>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/stand.jpg" alt="Phone & PC Stand">
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories">
+        </div>
+        <div class="acc-card-label">🖥️ Phone & PC Stand</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(3)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(4)">
-        <img src="images/accessories/charger.jpg" alt="Charger"/>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/charger.jpg" alt="Charger"/>
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories"/>
+        </div>
         <div class="acc-card-label">⚡ Charger</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(4)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(5)">
-        <img src="images/accessories/earpods.jpg" alt="Earpods"/>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/earpods.jpg" alt="Earpods"/>
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories"/>
+        </div>
         <div class="acc-card-label">🎧 Earpods</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(5)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(6)">
-        <img src="images/accessories/accessories.jpg" alt="Other Accessories"/>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/accessories.jpg" alt="Other Accessories"/>
+          <img class="acc-card-small-img" src="images/accessories/battery.jpg" alt="More Accessories"/>
+        </div>
         <div class="acc-card-label">🛍️ Other Accessories</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(6)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(7)">
-        <img src="images/accessories/smartwatch.jpg" alt="Smart Watch"/>
+        <div class="acc-card-media">
+          <img class="acc-card-main-img" src="images/accessories/smartwatch.jpg" alt="Smart Watch"/>
+          <img class="acc-card-small-img" src="images/accessories/accessories.jpg" alt="More Accessories"/>
+        </div>
         <div class="acc-card-label">⌚ Smart Watch</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(7)">Order Now</button>
       </div>
