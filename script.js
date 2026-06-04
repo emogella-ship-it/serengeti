@@ -449,3 +449,85 @@ document.addEventListener('DOMContentLoaded', () => {
 ══════════════════════════════════════════════ */
 const yearEl = document.getElementById('footerYear');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* ══════════════════════════════════════════════
+   PRODUCTS MODAL (FIX IMAGE NOT SHOWING)
+══════════════════════════════════════════════ */
+const products = [
+  {
+    name: "Chemli",
+    price: "Ask for Price",
+    img: "images/accessories/chemli.png",
+    specs: [
+      "Premium quality product",
+      "Durable and long-lasting build",
+      "Compatible with multiple devices",
+      "Available in various styles",
+      "Contact us for full details"
+    ]
+  },
+  {
+    name: "Battery",
+    price: "Ask for Price",
+    img: "images/accessories/batter.png",
+    specs: ["High quality battery", "Long life"]
+  },
+  {
+    name: "Fume Light",
+    price: "Ask for Price",
+    img: "images/accessories/fumeligt.png",
+    specs: ["Bright light", "Energy saving"]
+  },
+  {
+    name: "Phone Stand",
+    price: "Ask for Price",
+    img: "images/accessories/phone-pcstand.png",
+    specs: ["Adjustable", "Strong build"]
+  },
+  {
+    name: "Charger",
+    price: "Ask for Price",
+    img: "images/accessories/charger.png",
+    specs: ["Fast charging", "Safe use"]
+  },
+  {
+    name: "Earpods",
+    price: "Ask for Price",
+    img: "images/accessories/earpods.jpg",
+    specs: ["Clear sound", "Comfortable"]
+  },
+  {
+    name: "Smart Watch",
+    price: "Ask for Price",
+    img: "images/accessories/smartwach.png",
+    specs: ["Fitness tracking", "Bluetooth"]
+  }
+];
+
+/* OPEN PRODUCT MODAL */
+function openProduct(index) {
+  const product = products[index];
+
+  document.getElementById("prodModalImg").src = product.img;
+  document.getElementById("prodModalName").textContent = product.name;
+  document.getElementById("prodModalPrice").textContent = product.price;
+
+  const specsList = document.getElementById("prodModalSpecs");
+  specsList.innerHTML = "";
+
+  product.specs.forEach(spec => {
+    const li = document.createElement("li");
+    li.textContent = spec;
+    specsList.appendChild(li);
+  });
+
+  document.getElementById("prodModalOrder").href =
+    `https://wa.me/${WHATSAPP_NUMBER}?text=I want ${product.name}`;
+
+  document.getElementById("prodModal").classList.add("open");
+}
+
+/* CLOSE MODAL */
+function closeProdModal() {
+  document.getElementById("prodModal").classList.remove("open");
+}

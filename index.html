@@ -3,56 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MogxTech – Expert tech services in Arusha, Tanzania. Phone repairs, PC maintenance, web development, network services and more." />
+  <meta name="description" content="MogxTech – Expert tech services in Arusha, Tanzania." />
   <title>MogxTech | Emmanuel Stanley Mogella – Arusha, Tanzania</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── ACCESSORIES LIGHTBOX ── */
+    .acc-lightbox {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+      flex-direction: column; padding: 1.5rem;
+    }
+    .acc-lightbox.open { display: flex; }
+    .acc-lightbox-inner {
+      background: linear-gradient(135deg,#0d1a2e,#0b1120);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 20px; width: 100%; max-width: 900px;
+      max-height: 90vh; overflow-y: auto;
+      padding: 2.5rem 2rem; position: relative;
+    }
+    .acc-lightbox-header { text-align: center; margin-bottom: 2rem; }
+    .acc-lightbox-header h2 {
+      font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800;
+      background: linear-gradient(90deg,#00d4ff,#0af5b0);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      margin-bottom:.4rem;
+    }
+    .acc-lightbox-header p { color:#7b8fb0; font-size:.9rem; }
+    .acc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px,1fr));
+      gap: 1.2rem;
+    }
+    .acc-card {
+      border-radius: 14px; overflow: hidden; cursor: pointer;
+      border: 1px solid rgba(0,212,255,0.12);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      background: #050a14;
+    }
+    .acc-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(0,212,255,0.5);
+      box-shadow: 0 12px 32px rgba(0,212,255,0.15);
+    }
+    .acc-card img {
+      width:100%; aspect-ratio:1/1; object-fit:cover; display:block;
+      transition: transform 0.4s;
+    }
+    .acc-card:hover img { transform: scale(1.08); }
+    .acc-card-label {
+      padding:.7rem .8rem;
+      font-family:'Syne',sans-serif; font-size:.82rem; font-weight:700;
+      letter-spacing:.3px; text-align:center;
+    }
+    .acc-card:nth-child(1) .acc-card-label { background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,212,255,.05)); color:#00d4ff; }
+    .acc-card:nth-child(2) .acc-card-label { background:linear-gradient(135deg,rgba(10,245,176,.15),rgba(10,245,176,.05)); color:#0af5b0; }
+    .acc-card:nth-child(3) .acc-card-label { background:linear-gradient(135deg,rgba(255,107,53,.15),rgba(255,107,53,.05)); color:#ff6b35; }
+    .acc-card:nth-child(4) .acc-card-label { background:linear-gradient(135deg,rgba(188,24,136,.15),rgba(220,39,67,.05)); color:#f472b6; }
+    .acc-card:nth-child(5) .acc-card-label { background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(250,204,21,.05)); color:#facc15; }
+    .acc-card:nth-child(6) .acc-card-label { background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(139,92,246,.05)); color:#a78bfa; }
+    .acc-card:nth-child(7) .acc-card-label { background:linear-gradient(135deg,rgba(34,211,238,.15),rgba(34,211,238,.05)); color:#22d3ee; }
+    .acc-card:nth-child(8) .acc-card-label { background:linear-gradient(135deg,rgba(52,211,153,.15),rgba(52,211,153,.05)); color:#34d399; }
+    .acc-close-btn {
+      position:absolute; top:1.2rem; right:1.2rem;
+      background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.25);
+      color:#00d4ff; font-size:1rem; font-weight:700;
+      width:36px; height:36px; border-radius:50%; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .3s;
+    }
+    .acc-close-btn:hover { background:rgba(0,212,255,.25); transform:rotate(90deg); }
+    .acc-footer-btn {
+      display:inline-flex; align-items:center; gap:.6rem;
+      margin-top:2rem; background:#25d366; color:#fff;
+      font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem;
+      padding:.85rem 2rem; border-radius:50px; text-decoration:none;
+      transition:all .3s; box-shadow:0 6px 20px rgba(37,211,102,.35);
+    }
+    .acc-footer-btn:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(37,211,102,.5); }
+    .service-card.clickable { cursor:pointer; }
+
+    /* ── PRODUCT DETAIL MODAL ── */
+    .prod-modal {
+      display:none; position:fixed; inset:0; z-index:400;
+      background:rgba(0,0,0,0.96);
+      align-items:center; justify-content:center; padding:1.5rem;
+    }
+    .prod-modal.open { display:flex; }
+    .prod-modal-inner {
+      background:linear-gradient(135deg,#0d1a2e,#0b1120);
+      border-radius:20px; width:100%; max-width:620px;
+      max-height:90vh; overflow-y:auto;
+      position:relative; border:1px solid rgba(0,212,255,0.25);
+    }
+    .prod-modal-img {
+      width:100%; aspect-ratio:4/3; object-fit:cover;
+      border-radius:20px 20px 0 0; display:block;
+    }
+    .prod-modal-body { padding:2rem; }
+    .prod-modal-name {
+      font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800;
+      margin-bottom:.5rem;
+      background:linear-gradient(90deg,#00d4ff,#0af5b0);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .prod-modal-price {
+      font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700;
+      color:#facc15; margin-bottom:1rem;
+    }
+    .prod-modal-specs {
+      list-style:none; margin-bottom:1.5rem;
+    }
+    .prod-modal-specs li {
+      display:flex; align-items:flex-start; gap:.7rem;
+      color:#7b8fb0; font-size:.9rem; margin-bottom:.6rem;
+      line-height:1.5;
+    }
+    .prod-modal-specs li::before { content:'✦'; color:#00d4ff; font-size:.7rem; margin-top:4px; flex-shrink:0; }
+    .prod-modal-order {
+      display:flex; align-items:center; justify-content:center; gap:.6rem;
+      width:100%; padding:1rem; border-radius:50px;
+      background:#25d366; color:#fff; text-decoration:none;
+      font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+      transition:all .3s; box-shadow:0 6px 20px rgba(37,211,102,.3);
+      border:none; cursor:pointer;
+    }
+    .prod-modal-order:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(37,211,102,.5); }
+    .prod-modal-close {
+      position:absolute; top:1rem; right:1rem;
+      background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.15);
+      color:#fff; width:38px; height:38px; border-radius:50%;
+      font-size:1rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .3s; z-index:10;
+    }
+    .prod-modal-close:hover { background:rgba(255,255,255,.15); transform:rotate(90deg); }
+  </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
-     LIGHTBOX (Gallery Popup)
-══════════════════════════════════ -->
+<!-- ══ ACCESSORIES GALLERY LIGHTBOX ══ -->
+<div class="acc-lightbox" id="accLightbox">
+  <div class="acc-lightbox-inner">
+    <button class="acc-close-btn" onclick="closeAccLightbox()">✕</button>
+    <div class="acc-lightbox-header">
+      <h2>📱 Phone Accessories</h2>
+      <p>Premium accessories for all major brands — tap any product to see details & order</p>
+    </div>
+    <div class="acc-grid">
+      <div class="acc-card" onclick="openProduct(0)">
+        <img src="images/accessories/batter.png" alt="Phone Battery" loading="lazy"/>
+        <div class="acc-card-label">🔋 Phone Battery</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(1)">
+        <img src="images/accessories/chemli.png" alt="Chemli" loading="lazy"/>
+        <div class="acc-card-label">✨ Chemli</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(2)">
+        <img src="images/accessories/fumeligt.png" alt="Fume Light" loading="lazy"/>
+        <div class="acc-card-label">💡 Fume Light</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(3)">
+        <img src="images/accessories/phone-pcstand.png" alt="Phone & PC Stand" loading="lazy"/>
+        <div class="acc-card-label">🖥️ Phone & PC Stand</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(4)">
+        <img src="images/accessories/charger.png" alt="Charger" loading="lazy"/>
+        <div class="acc-card-label">⚡ Charger</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(5)">
+        <img src="images/accessories/earpods.jpg" alt="Earpods" loading="lazy"/>
+        <div class="acc-card-label">🎧 Earpods</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(6)">
+        <img src="images/accessories/others.png" alt="Other Accessories" loading="lazy"/>
+        <div class="acc-card-label">🛍️ Other Accessories</div>
+      </div>
+      <div class="acc-card" onclick="openProduct(7)">
+        <img src="images/accessories/smartwach.png" alt="Smart Watch" loading="lazy"/>
+        <div class="acc-card-label">⌚ Smart Watch</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a class="acc-footer-btn"
+         href="https://wa.me/255768557268?text=Hello%20EmStanTech!%20I%20want%20to%20see%20all%20available%20phone%20accessories%20and%20prices."
+         target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Browse All on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT DETAIL MODAL ══ -->
+<div class="prod-modal" id="prodModal">
+  <div class="prod-modal-inner">
+    <button class="prod-modal-close" onclick="closeProdModal()">✕</button>
+    <img class="prod-modal-img" id="prodModalImg" src="" alt="" />
+    <div class="prod-modal-body">
+      <div class="prod-modal-name" id="prodModalName"></div>
+      <div class="prod-modal-price" id="prodModalPrice"></div>
+      <ul class="prod-modal-specs" id="prodModalSpecs"></ul>
+      <a class="prod-modal-order" id="prodModalOrder" href="#" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order This on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <div class="lightbox-content">
     <div class="lightbox-emoji" id="lbEmoji">📱</div>
-    <div class="lightbox-title"  id="lbTitle">Service Title</div>
-    <p   class="lightbox-desc"   id="lbDesc">Description goes here.</p>
+    <div class="lightbox-title" id="lbTitle">Service Title</div>
+    <p class="lightbox-desc" id="lbDesc">Description goes here.</p>
     <button class="lightbox-close" onclick="closeLightbox()">✕ Close</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════
-     MOBILE MENU
-══════════════════════════════════ -->
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <span class="close-btn" onclick="toggleMenu()">✕</span>
-  <a href="#hero"         onclick="toggleMenu()">Home</a>
-  <a href="#services"     onclick="toggleMenu()">Services</a>
-  <a href="#gallery"      onclick="toggleMenu()">Gallery</a>
-  <a href="#pricing"      onclick="toggleMenu()">Pricing</a>
-  <a href="#about"        onclick="toggleMenu()">About</a>
-  <a href="#contact"      onclick="toggleMenu()">Contact</a>
+  <a href="#hero" onclick="toggleMenu()">Home</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
   <a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()" style="display:flex;align-items:center;gap:0.5rem;">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#ig-mob)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <defs>
-        <linearGradient id="ig-mob" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#f09433"/>
-          <stop offset="50%" style="stop-color:#dc2743"/>
-          <stop offset="100%" style="stop-color:#bc1888"/>
-        </linearGradient>
-      </defs>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1" fill="url(#ig-mob)" stroke="none"/>
+      <defs><linearGradient id="ig-mob" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="url(#ig-mob)" stroke="none"/>
     </svg>
     Instagram
   </a>
 </div>
 
-<!-- ══════════════════════════════════
-     NAVBAR
-══════════════════════════════════ -->
+<!-- NAVBAR -->
 <nav>
   <a href="#hero" class="logo">Mogx<span>Tech</span></a>
   <ul class="nav-links">
@@ -63,324 +252,162 @@
     <li><a href="#about">About</a></li>
     <li><a href="#contact" class="nav-cta">Contact Us</a></li>
     <li>
-      <a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" style="display:flex;align-items:center;">
+      <a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer" title="Instagram" style="display:flex;align-items:center;">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#ig-nav)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <defs>
-            <linearGradient id="ig-nav" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#f09433"/>
-              <stop offset="50%" style="stop-color:#dc2743"/>
-              <stop offset="100%" style="stop-color:#bc1888"/>
-            </linearGradient>
-          </defs>
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="url(#ig-nav)" stroke="none"/>
+          <defs><linearGradient id="ig-nav" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="url(#ig-nav)" stroke="none"/>
         </svg>
       </a>
     </li>
   </ul>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ══════════════════════════════════
-     HERO
-══════════════════════════════════ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
+  <div class="hero-grid"></div><div class="hero-glow"></div><div class="hero-glow2"></div>
   <div class="hero-content">
     <div class="hero-badge">🟢 Available for Projects — Arusha, Tanzania</div>
-    <h1>
-      Your Trusted<br>
-      <span class="accent">Tech Partner</span><br>
-      <span class="accent2">in East Africa</span>
-    </h1>
-    <p class="hero-sub">
-      From phone screen replacements to full web development and network infrastructure —
-      MogxTech delivers expert solutions for every tech challenge.
-    </p>
+    <h1>Your Trusted<br><span class="accent">Tech Partner</span><br><span class="accent2">in East Africa</span></h1>
+    <p class="hero-sub">From phone screen replacements to full web development and network infrastructure — MogxTech delivers expert solutions for every tech challenge.</p>
     <div class="hero-btns">
       <a href="#services" class="btn-primary">Explore Services</a>
-      <a href="#contact"  class="btn-outline">Get a Free Quote</a>
+      <a href="#contact" class="btn-outline">Get a Free Quote</a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num" data-target="500" data-suffix="+">500+</span>
-        <span class="stat-label">Devices Repaired</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="8" data-suffix="+">8+</span>
-        <span class="stat-label">Services Offered</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="100" data-suffix="%">100%</span>
-        <span class="stat-label">Client Satisfaction</span>
-      </div>
+      <div class="stat-item"><span class="stat-num" data-target="500" data-suffix="+">500+</span><span class="stat-label">Devices Repaired</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="8" data-suffix="+">8+</span><span class="stat-label">Services Offered</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="100" data-suffix="%">100%</span><span class="stat-label">Client Satisfaction</span></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     SERVICES
-══════════════════════════════════ -->
+<!-- SERVICES -->
 <section id="services">
   <div class="section-label">What We Do</div>
   <h2>Our Expert Services</h2>
   <p class="section-desc">We handle all your tech needs — from quick repairs to complete digital solutions.</p>
-
   <div class="services-grid">
 
-    <div class="service-card fade-in">
+    <div class="service-card clickable fade-in" onclick="openAccLightbox()">
       <div class="service-icon">📱</div>
       <h3>Phone Accessories</h3>
-      <p>Quality cases, chargers, earphones, neck pods, wireless pods, game pads, headphones, all USB cable chargers, phone batteries, flash originals, memory cards, screen protectors and more. Premium accessories for all major brands at affordable prices.</p>
-      <span class="service-tag">Retail</span>
+      <p>Quality cases, chargers, earphones, neck pods, wireless pods, game pads, headphones, USB cables, batteries, flash originals, memory cards, screen protectors and more.</p>
+      <span class="service-tag" style="background:rgba(0,212,255,0.12);color:var(--accent);">👆 Tap to View Products</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">🔧</div>
-      <h3>PC Maintenance</h3>
+      <div class="service-icon">🔧</div><h3>PC Maintenance</h3>
       <p>Hardware diagnostics, upgrades, cleaning, virus removal, OS installation and full PC servicing to keep your computer running smoothly.</p>
       <span class="service-tag">Repair</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">📲</div>
-      <h3>Screen Replacement</h3>
-      <p>Cracked or damaged screen? We replace screens for all smartphone brands with genuine-quality parts and a quick turnaround time. Also covers battery replacement, software troubleshooting and OS reinstallation.</p>
+      <div class="service-icon">📲</div><h3>Screen Replacement</h3>
+      <p>Cracked or damaged screen? We replace screens for all smartphone brands with genuine-quality parts and a quick turnaround. Also covers battery replacement and OS reinstallation.</p>
       <span class="service-tag">Repair</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">⚡</div>
-      <h3>Charge Port Repair</h3>
+      <div class="service-icon">⚡</div><h3>Charge Port Repair</h3>
       <p>Phone not charging? We diagnose and fix charging port issues, battery problems and power-related faults professionally.</p>
       <span class="service-tag">Repair</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">🖥️</div>
-      <h3>System Design</h3>
+      <div class="service-icon">🖥️</div><h3>System Design</h3>
       <p>Custom software architecture and system design for businesses — scalable, secure and built for your specific operational needs.</p>
       <span class="service-tag">Tech</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">🌐</div>
-      <h3>Web Development</h3>
+      <div class="service-icon">🌐</div><h3>Web Development</h3>
       <p>Beautiful, responsive websites and web applications built with modern technologies. From landing pages to full business platforms.</p>
       <span class="service-tag">Digital</span>
     </div>
 
     <div class="service-card fade-in">
-      <div class="service-icon">🔌</div>
-      <h3>Network Services</h3>
+      <div class="service-icon">🔌</div><h3>Network Services</h3>
       <p>Network setup, configuration, troubleshooting, Wi-Fi optimization and LAN/WAN infrastructure for homes and businesses.</p>
       <span class="service-tag">Infrastructure</span>
     </div>
 
     <div class="service-card fade-in" style="background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(10,245,176,.06));border-color:rgba(0,212,255,.3)">
-      <div class="service-icon">💡</div>
-      <h3>Got a Custom Need?</h3>
-      <p>Don't see what you're looking for? Reach out — if it's tech, we can likely help. We love solving unique challenges.</p>
+      <div class="service-icon">💡</div><h3>Got a Custom Need?</h3>
+      <p>Don't see what you're looking for? Reach out — if it's tech, we can likely help.</p>
       <a href="#contact" class="service-tag" style="text-decoration:none;cursor:pointer;background:rgba(0,212,255,.12)">Talk to Us →</a>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     GALLERY
-══════════════════════════════════ -->
+<!-- GALLERY -->
 <section id="gallery">
   <div class="section-label">Our Work</div>
   <h2>Services in Action</h2>
   <p class="section-desc">A visual look at the work we do every day — click any card to learn more.</p>
-
   <div class="gallery-grid">
-
-    <div class="gallery-item fade-in" onclick="openLightbox(0)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">📱</div>
-        <div class="gallery-label">Phone Screen Replacement</div>
-        <div class="gallery-sub">All brands · Same-day service</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="gallery-item fade-in" onclick="openLightbox(1)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">💻</div>
-        <div class="gallery-label">PC Maintenance & Repair</div>
-        <div class="gallery-sub">Hardware · Software · Data Recovery</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="gallery-item fade-in" onclick="openLightbox(2)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">🌐</div>
-        <div class="gallery-label">Web Development</div>
-        <div class="gallery-sub">HTML · CSS · JavaScript · Responsive</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="gallery-item fade-in" onclick="openLightbox(3)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">🔌</div>
-        <div class="gallery-label">Network Infrastructure</div>
-        <div class="gallery-sub">LAN · Wi-Fi · Security · Cabling</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="gallery-item fade-in" onclick="openLightbox(4)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">⚡</div>
-        <div class="gallery-label">Charge Port & Battery Repair</div>
-        <div class="gallery-sub">Fast diagnosis · Genuine parts</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="gallery-item fade-in" onclick="openLightbox(5)">
-      <div class="gallery-inner">
-        <div class="gallery-emoji">🖥️</div>
-        <div class="gallery-label">System Design</div>
-        <div class="gallery-sub">Architecture · Databases · APIs</div>
-      </div>
-      <div class="gallery-overlay">
-        <button class="gallery-view-btn">View Details</button>
-      </div>
-    </div>
-
+    <div class="gallery-item fade-in" onclick="openLightbox(0)"><div class="gallery-inner"><div class="gallery-emoji">📱</div><div class="gallery-label">Phone Screen Replacement</div><div class="gallery-sub">All brands · Same-day service</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
+    <div class="gallery-item fade-in" onclick="openLightbox(1)"><div class="gallery-inner"><div class="gallery-emoji">💻</div><div class="gallery-label">PC Maintenance & Repair</div><div class="gallery-sub">Hardware · Software · Data Recovery</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
+    <div class="gallery-item fade-in" onclick="openLightbox(2)"><div class="gallery-inner"><div class="gallery-emoji">🌐</div><div class="gallery-label">Web Development</div><div class="gallery-sub">HTML · CSS · JavaScript · Responsive</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
+    <div class="gallery-item fade-in" onclick="openLightbox(3)"><div class="gallery-inner"><div class="gallery-emoji">🔌</div><div class="gallery-label">Network Infrastructure</div><div class="gallery-sub">LAN · Wi-Fi · Security · Cabling</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
+    <div class="gallery-item fade-in" onclick="openLightbox(4)"><div class="gallery-inner"><div class="gallery-emoji">⚡</div><div class="gallery-label">Charge Port & Battery Repair</div><div class="gallery-sub">Fast diagnosis · Genuine parts</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
+    <div class="gallery-item fade-in" onclick="openLightbox(5)"><div class="gallery-inner"><div class="gallery-emoji">🖥️</div><div class="gallery-label">System Design</div><div class="gallery-sub">Architecture · Databases · APIs</div></div><div class="gallery-overlay"><button class="gallery-view-btn">View Details</button></div></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     PRICING
-══════════════════════════════════ -->
+<!-- PRICING -->
 <section id="pricing">
   <div class="section-label">Transparent Pricing</div>
   <h2>Simple, Fair Prices</h2>
   <p class="section-desc">No hidden fees. No surprises. Just honest pricing for quality tech services.</p>
-
   <div class="pricing-grid">
-
     <div class="pricing-card fade-in">
-      <div class="pricing-icon">🔧</div>
-      <div class="pricing-name">Device Repair</div>
+      <div class="pricing-icon">🔧</div><div class="pricing-name">Device Repair</div>
       <div class="pricing-desc">Quick fixes for phones & computers</div>
       <div class="pricing-price">From <span>TSh 15,000</span></div>
-      <ul class="pricing-features">
-        <li>Phone screen replacement</li>
-        <li>Charge port repair</li>
-        <li>Battery replacement</li>
-        <li>PC virus removal</li>
-        <li>OS reinstallation</li>
-        <li class="no">Web development</li>
-        <li class="no">Network setup</li>
-      </ul>
+      <ul class="pricing-features"><li>Phone screen replacement</li><li>Charge port repair</li><li>Battery replacement</li><li>PC virus removal</li><li>OS reinstallation</li><li class="no">Web development</li><li class="no">Network setup</li></ul>
       <a href="#contact" class="pricing-btn">Book Repair</a>
     </div>
-
     <div class="pricing-card popular fade-in">
       <div class="popular-badge">⭐ Most Popular</div>
-      <div class="pricing-icon">🌐</div>
-      <div class="pricing-name">Digital Package</div>
+      <div class="pricing-icon">🌐</div><div class="pricing-name">Digital Package</div>
       <div class="pricing-desc">Web + network for small businesses</div>
       <div class="pricing-price">From <span>TSh 250,000</span></div>
-      <ul class="pricing-features">
-        <li>Responsive website (5 pages)</li>
-        <li>Contact form integration</li>
-        <li>Mobile-friendly design</li>
-        <li>Basic SEO setup</li>
-        <li>Network configuration</li>
-        <li>Wi-Fi setup & security</li>
-        <li>1 month free support</li>
-      </ul>
+      <ul class="pricing-features"><li>Responsive website (5 pages)</li><li>Contact form integration</li><li>Mobile-friendly design</li><li>Basic SEO setup</li><li>Network configuration</li><li>Wi-Fi setup & security</li><li>1 month free support</li></ul>
       <a href="#contact" class="pricing-btn">Get Started</a>
     </div>
-
     <div class="pricing-card fade-in">
-      <div class="pricing-icon">🏢</div>
-      <div class="pricing-name">Enterprise Solution</div>
+      <div class="pricing-icon">🏢</div><div class="pricing-name">Enterprise Solution</div>
       <div class="pricing-desc">Full system design & infrastructure</div>
       <div class="pricing-price">Custom <span>Quote</span></div>
-      <ul class="pricing-features">
-        <li>Full web application</li>
-        <li>Custom system architecture</li>
-        <li>Database design & setup</li>
-        <li>Complete network infrastructure</li>
-        <li>Staff IT training</li>
-        <li>Ongoing maintenance plan</li>
-        <li>Priority support</li>
-      </ul>
+      <ul class="pricing-features"><li>Full web application</li><li>Custom system architecture</li><li>Database design & setup</li><li>Complete network infrastructure</li><li>Staff IT training</li><li>Ongoing maintenance plan</li><li>Priority support</li></ul>
       <a href="#contact" class="pricing-btn">Request Quote</a>
     </div>
-
   </div>
-
-  <p class="pricing-note">
-    All prices are starting estimates and may vary by device model or project scope.
-    <a href="#contact">Contact us</a> for an exact quote — it's free and fast.
-  </p>
+  <p class="pricing-note">All prices are starting estimates. <a href="#contact">Contact us</a> for an exact quote — it's free and fast.</p>
 </section>
 
-<!-- ══════════════════════════════════
-     ABOUT
-══════════════════════════════════ -->
+<!-- ABOUT -->
 <section id="about">
   <div class="about-layout">
-
     <div class="about-img-box">
       <div class="about-card-main fade-in">
         <div class="avatar-circle">ESM</div>
         <div class="about-name">Emmanuel Stanley Mogella</div>
         <div class="about-role">Founder & Lead Technician — MogxTech / EmStanTech</div>
-        <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">
-          Based in Arusha, Tanzania · Serving East Africa
-        </p>
+        <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">Based in Arusha, Tanzania · Serving East Africa</p>
         <div class="skills-list">
-          <span class="skill-pill">Web Dev</span>
-          <span class="skill-pill">Networking</span>
-          <span class="skill-pill">Hardware</span>
-          <span class="skill-pill">System Design</span>
-          <span class="skill-pill">Mobile Repair</span>
-          <span class="skill-pill">IT Support</span>
+          <span class="skill-pill">Web Dev</span><span class="skill-pill">Networking</span><span class="skill-pill">Hardware</span>
+          <span class="skill-pill">System Design</span><span class="skill-pill">Mobile Repair</span><span class="skill-pill">IT Support</span>
         </div>
       </div>
-      <div class="about-floating fade-in">
-        <div class="dot"></div>
-        <span>Accepting new clients</span>
-      </div>
+      <div class="about-floating fade-in"><div class="dot"></div><span>Accepting new clients</span></div>
     </div>
-
     <div class="about-text fade-in">
       <div class="section-label">About Us</div>
       <h2>Tech Expertise You Can Actually Trust</h2>
-      <p>
-        EmStanTech — born from the vision of Emmanuel Stanley Mogella — is a technology services
-        company built on the belief that quality tech support should be accessible to everyone in East Africa.
-      </p>
-      <p>
-        Whether you walk in with a cracked phone screen or need a complete business web system designed
-        from scratch, we bring the same dedication and professionalism to every job.
-      </p>
+      <p>EmStanTech — born from the vision of Emmanuel Stanley Mogella — is a technology services company built on the belief that quality tech support should be accessible to everyone in East Africa.</p>
+      <p>Whether you walk in with a cracked phone screen or need a complete business web system designed from scratch, we bring the same dedication and professionalism to every job.</p>
       <ul class="values-list">
         <li>Honest diagnostics — we tell you exactly what's wrong and what it costs</li>
         <li>Fast turnaround — most repairs completed same day</li>
@@ -390,216 +417,80 @@
       </ul>
       <a href="#contact" class="btn-primary">Work With Us</a>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     PROCESS
-══════════════════════════════════ -->
+<!-- PROCESS -->
 <section id="process">
   <div class="section-label">How It Works</div>
   <h2>Simple, Transparent Process</h2>
   <p class="section-desc">From first contact to finished job — here's what working with EmStanTech looks like.</p>
-
   <div class="process-steps">
-    <div class="process-step fade-in">
-      <div class="step-num">01</div>
-      <div class="step-icon">📞</div>
-      <h3>Reach Out</h3>
-      <p>Contact us via phone, WhatsApp, or this website and describe your problem.</p>
-      <div class="step-connector"></div>
-    </div>
-    <div class="process-step fade-in">
-      <div class="step-num">02</div>
-      <div class="step-icon">🔍</div>
-      <h3>Diagnosis</h3>
-      <p>We assess the issue and give you a clear cost estimate — no surprises.</p>
-      <div class="step-connector"></div>
-    </div>
-    <div class="process-step fade-in">
-      <div class="step-num">03</div>
-      <div class="step-icon">⚙️</div>
-      <h3>We Fix It</h3>
-      <p>Our technicians get to work with precision and care on your device or project.</p>
-      <div class="step-connector"></div>
-    </div>
-    <div class="process-step fade-in">
-      <div class="step-num">04</div>
-      <div class="step-icon">✅</div>
-      <h3>Delivered</h3>
-      <p>You get your solution — tested, guaranteed, and ready to use.</p>
-    </div>
+    <div class="process-step fade-in"><div class="step-num">01</div><div class="step-icon">📞</div><h3>Reach Out</h3><p>Contact us via phone, WhatsApp, or this website.</p><div class="step-connector"></div></div>
+    <div class="process-step fade-in"><div class="step-num">02</div><div class="step-icon">🔍</div><h3>Diagnosis</h3><p>We assess and give you a clear cost estimate — no surprises.</p><div class="step-connector"></div></div>
+    <div class="process-step fade-in"><div class="step-num">03</div><div class="step-icon">⚙️</div><h3>We Fix It</h3><p>Our technicians get to work with precision and care.</p><div class="step-connector"></div></div>
+    <div class="process-step fade-in"><div class="step-num">04</div><div class="step-icon">✅</div><h3>Delivered</h3><p>You get your solution — tested, guaranteed, ready to use.</p></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     TESTIMONIALS
-══════════════════════════════════ -->
+<!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="section-label">Client Reviews</div>
   <h2>What Our Clients Say</h2>
   <p class="section-desc">Trusted by individuals and businesses across Arusha and beyond.</p>
-
   <div class="testi-grid">
-
-    <div class="testi-card fade-in">
-      <div class="stars">★★★★★</div>
-      <p>"My phone screen was replaced in under an hour and it looks brand new. Very professional service and fair pricing. Highly recommend EmStanTech!"</p>
-      <div class="testi-author">
-        <div class="testi-avatar">AK</div>
-        <div>
-          <div class="testi-name">Amina Kijenge</div>
-          <div class="testi-loc">Arusha, Tanzania</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card fade-in">
-      <div class="stars">★★★★★</div>
-      <p>"Emmanuel designed our business website and set up our office network. Everything works perfectly. He explained every step clearly — outstanding work!"</p>
-      <div class="testi-author">
-        <div class="testi-avatar">JM</div>
-        <div>
-          <div class="testi-name">Joseph Mwanga</div>
-          <div class="testi-loc">Business Owner, Arusha</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card fade-in">
-      <div class="stars">★★★★★</div>
-      <p>"My laptop was completely dead. They diagnosed it quickly, fixed the issue and saved all my data. Saved my entire business! Asante sana EmStanTech!"</p>
-      <div class="testi-author">
-        <div class="testi-avatar">GN</div>
-        <div>
-          <div class="testi-name">Grace Ngowi</div>
-          <div class="testi-loc">Moshi, Tanzania</div>
-        </div>
-      </div>
-    </div>
-
+    <div class="testi-card fade-in"><div class="stars">★★★★★</div><p>"My phone screen was replaced in under an hour and it looks brand new. Very professional service and fair pricing. Highly recommend EmStanTech!"</p><div class="testi-author"><div class="testi-avatar">AK</div><div><div class="testi-name">Amina Kijenge</div><div class="testi-loc">Arusha, Tanzania</div></div></div></div>
+    <div class="testi-card fade-in"><div class="stars">★★★★★</div><p>"Emmanuel designed our business website and set up our office network. Everything works perfectly. Outstanding work!"</p><div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">Joseph Mwanga</div><div class="testi-loc">Business Owner, Arusha</div></div></div></div>
+    <div class="testi-card fade-in"><div class="stars">★★★★★</div><p>"My laptop was completely dead. They diagnosed it quickly, fixed the issue and saved all my data. Asante sana EmStanTech!"</p><div class="testi-author"><div class="testi-avatar">GN</div><div><div class="testi-name">Grace Ngowi</div><div class="testi-loc">Moshi, Tanzania</div></div></div></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     CONTACT
-══════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-layout">
-
     <div class="contact-info">
       <div class="section-label">Get In Touch</div>
       <h2>Let's Solve Your Tech Problem</h2>
       <p>Fill in the form or reach out directly — we respond within a few hours.</p>
-
-      <div class="contact-item fade-in">
-        <div class="contact-icon">📍</div>
-        <div class="contact-item-text">
-          <small>Location</small>
-          <span>Arusha, Tanzania</span>
-        </div>
-      </div>
-
-      <div class="contact-item fade-in">
-        <div class="contact-icon">📱</div>
-        <div class="contact-item-text">
-          <small>Phone / WhatsApp</small>
-          <span>+255 768 557 268</span>
-        </div>
-      </div>
-
-      <div class="contact-item fade-in">
-        <div class="contact-icon">✉️</div>
-        <div class="contact-item-text">
-          <small>Email</small>
-          <span>emogella@gmail.com</span>
-        </div>
-      </div>
-
+      <div class="contact-item fade-in"><div class="contact-icon">📍</div><div class="contact-item-text"><small>Location</small><span>Arusha, Tanzania</span></div></div>
+      <div class="contact-item fade-in"><div class="contact-icon">📱</div><div class="contact-item-text"><small>Phone / WhatsApp</small><span>+255 768 557 268</span></div></div>
+      <div class="contact-item fade-in"><div class="contact-icon">✉️</div><div class="contact-item-text"><small>Email</small><span>emogella@gmail.com</span></div></div>
       <div class="contact-item fade-in">
         <div class="contact-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#ig-contact)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <defs>
-              <linearGradient id="ig-contact" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#f09433"/>
-                <stop offset="50%" style="stop-color:#dc2743"/>
-                <stop offset="100%" style="stop-color:#bc1888"/>
-              </linearGradient>
-            </defs>
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="url(#ig-contact)" stroke="none"/>
+            <defs><linearGradient id="ig-contact" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="url(#ig-contact)" stroke="none"/>
           </svg>
         </div>
-        <div class="contact-item-text">
-          <small>Instagram</small>
-          <span>
-            <a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer">
-              @mogellaemmanuelstanley
-            </a>
-          </span>
-        </div>
+        <div class="contact-item-text"><small>Instagram</small><span><a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer">@mogellaemmanuelstanley</a></span></div>
       </div>
-
-      <div class="contact-item fade-in">
-        <div class="contact-icon">🕐</div>
-        <div class="contact-item-text">
-          <small>Working Hours</small>
-          <span>Mon – Sat: 8:00 AM – 7:00 PM</span>
-        </div>
-      </div>
+      <div class="contact-item fade-in"><div class="contact-icon">🕐</div><div class="contact-item-text"><small>Working Hours</small><span>Mon – Sat: 8:00 AM – 7:00 PM</span></div></div>
     </div>
-
     <div class="contact-form fade-in">
       <div class="form-row">
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" id="firstName" placeholder="Emmanuel" />
-        </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" id="lastName" placeholder="Mogella" />
-        </div>
+        <div class="form-group"><label>First Name</label><input type="text" id="firstName" placeholder="Emmanuel"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="lastName" placeholder="Mogella"/></div>
       </div>
-      <div class="form-group">
-        <label>Phone / WhatsApp</label>
-        <input type="tel" id="phone" placeholder="+255 700 000 000" />
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="email" placeholder="your@email.com" />
-      </div>
+      <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="phone" placeholder="+255 700 000 000"/></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="your@email.com"/></div>
       <div class="form-group">
         <label>Service Needed</label>
         <select id="service">
           <option value="">Select a service...</option>
-          <option>Phone Screen Replacement</option>
-          <option>Charge Port / Battery Repair</option>
-          <option>PC Maintenance</option>
-          <option>Web Development</option>
-          <option>Network Services</option>
-          <option>System Design</option>
-          <option>Phone Accessories</option>
-          <option>Other / Not Sure</option>
+          <option>Phone Screen Replacement</option><option>Charge Port / Battery Repair</option>
+          <option>PC Maintenance</option><option>Web Development</option>
+          <option>Network Services</option><option>System Design</option>
+          <option>Phone Accessories</option><option>Other / Not Sure</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Describe Your Problem</label>
-        <textarea id="message" placeholder="Tell us what's going on with your device or what you need built..."></textarea>
-      </div>
+      <div class="form-group"><label>Describe Your Problem</label><textarea id="message" placeholder="Tell us what's going on with your device or what you need built..."></textarea></div>
       <button class="submit-btn" onclick="submitForm()">Send Message ✦</button>
-      <div class="success-msg" id="successMsg">
-        ✅ Message sent! We'll contact you within a few hours. Thank you!
-      </div>
+      <div class="success-msg" id="successMsg">✅ Message sent! We'll contact you within a few hours. Thank you!</div>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     FOOTER
-══════════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div>
     <div class="footer-logo">EmStan<span>Tech</span></div>
@@ -607,47 +498,170 @@
   </div>
   <p>© <span id="footerYear">2026</span> EmStanTech / MogxTech. All rights reserved.</p>
   <div class="footer-links">
-    <a href="#hero">Home</a>
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#hero">Home</a><a href="#services">Services</a><a href="#gallery">Gallery</a>
+    <a href="#pricing">Pricing</a><a href="#about">About</a><a href="#contact">Contact</a>
     <a href="https://instagram.com/mogellaemmanuelstanley" target="_blank" rel="noopener noreferrer" title="Instagram" style="display:inline-flex;align-items:center;">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#ig-footer)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <defs>
-          <linearGradient id="ig-footer" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#f09433"/>
-            <stop offset="50%" style="stop-color:#dc2743"/>
-            <stop offset="100%" style="stop-color:#bc1888"/>
-          </linearGradient>
-        </defs>
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="url(#ig-footer)" stroke="none"/>
+        <defs><linearGradient id="ig-footer" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="url(#ig-footer)" stroke="none"/>
       </svg>
     </a>
   </div>
 </footer>
 
-<!-- ══════════════════════════════════
-     WHATSAPP FLOATING BUTTON
-══════════════════════════════════ -->
-<a class="whatsapp-btn"
-   href="https://wa.me/255768557268?text=Hello%20EmStanTech!%20I%20need%20help%20with%20a%20tech%20issue."
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
+<!-- WHATSAPP -->
+<a class="whatsapp-btn" href="https://wa.me/255768557268?text=Hello%20EmStanTech!%20I%20need%20help%20with%20a%20tech%20issue." target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 <div class="whatsapp-tooltip">💬 Chat with us on WhatsApp</div>
 
-<!-- ══════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════ -->
 <script src="script.js"></script>
+<script>
+/* ── PRODUCT DATA — edit prices & specs here ── */
+const products = [
+  {
+    name: '🔋 Phone Battery',
+    img:  'images/accessories/batter.png',
+    price: 'From TSh 8,000',
+    specs: [
+      'Compatible with Samsung, iPhone, Tecno, Infinix & more',
+      'High-capacity original quality cells',
+      'Long-lasting charge cycle life',
+      'Safe overcharge & temperature protection',
+      'Available for most phone models'
+    ]
+  },
+  {
+    name: '✨ Chemli',
+    img:  'images/accessories/chemli.png',
+    price: 'Ask for Price',
+    specs: [
+      'Premium quality product',
+      'Durable and long-lasting build',
+      'Compatible with multiple devices',
+      'Available in various styles',
+      'Contact us for full details'
+    ]
+  },
+  {
+    name: '💡 Fume Light',
+    img:  'images/accessories/fumeligt.png',
+    price: 'Ask for Price',
+    specs: [
+      'Portable and rechargeable',
+      'Bright LED output',
+      'USB charging support',
+      'Compact and lightweight design',
+      'Ideal for home and outdoor use'
+    ]
+  },
+  {
+    name: '🖥️ Phone & PC Stand',
+    img:  'images/accessories/phone-pcstand.png',
+    price: 'From TSh 10,000',
+    specs: [
+      'Adjustable height and angle',
+      'Compatible with phones, tablets & laptops',
+      'Anti-slip base for stability',
+      'Foldable and portable design',
+      'Reduces neck and eye strain'
+    ]
+  },
+  {
+    name: '⚡ Charger',
+    img:  'images/accessories/charger.png',
+    price: 'From TSh 5,000',
+    specs: [
+      'Fast charging support (18W–65W)',
+      'Compatible with USB-C, Micro-USB & Lightning',
+      'Universal voltage (100–240V)',
+      'Built-in surge protection',
+      'Available: wall charger, car charger & travel adapters'
+    ]
+  },
+  {
+    name: '🎧 Earpods',
+    img:  'images/accessories/earpods.jpg',
+    price: 'From TSh 6,000',
+    specs: [
+      'Crystal clear stereo sound',
+      'Wired & wireless (Bluetooth) options',
+      'Built-in microphone for calls',
+      'Comfortable ergonomic fit',
+      'Compatible with all smartphones'
+    ]
+  },
+  {
+    name: '🛍️ Other Accessories',
+    img:  'images/accessories/others.png',
+    price: 'Various Prices',
+    specs: [
+      'Screen protectors (tempered glass)',
+      'Phone cases for all brands',
+      'Memory cards (original quality)',
+      'USB cables (fast charging)',
+      'Contact us for full product list'
+    ]
+  },
+  {
+    name: '⌚ Smart Watch',
+    img:  'images/accessories/smartwach.png',
+    price: 'From TSh 35,000',
+    specs: [
+      'Heart rate & fitness tracking',
+      'Bluetooth call & notification support',
+      'Water resistant design',
+      'Long battery life (5–7 days)',
+      'Compatible with Android & iOS'
+    ]
+  }
+];
+
+/* ── ACCESSORIES LIGHTBOX ── */
+function openAccLightbox() {
+  document.getElementById('accLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAccLightbox() {
+  document.getElementById('accLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── PRODUCT DETAIL MODAL ── */
+function openProduct(index) {
+  const p = products[index];
+  document.getElementById('prodModalImg').src         = p.img;
+  document.getElementById('prodModalImg').alt         = p.name;
+  document.getElementById('prodModalName').textContent  = p.name;
+  document.getElementById('prodModalPrice').textContent = '💰 ' + p.price;
+
+  const specsList = document.getElementById('prodModalSpecs');
+  specsList.innerHTML = '';
+  p.specs.forEach(spec => {
+    const li = document.createElement('li');
+    li.textContent = spec;
+    specsList.appendChild(li);
+  });
+
+  const waMsg = encodeURIComponent(
+    `Hello EmStanTech! 👋\nI am interested in: *${p.name}*\nPlease send me more details and availability.\n_Sent from MogxTech website_`
+  );
+  document.getElementById('prodModalOrder').href =
+    `https://wa.me/255768557268?text=${waMsg}`;
+
+  document.getElementById('prodModal').classList.add('open');
+}
+function closeProdModal() {
+  document.getElementById('prodModal').classList.remove('open');
+}
+
+/* ── CLOSE ON BACKDROP / ESCAPE ── */
+document.getElementById('accLightbox').addEventListener('click', function(e){ if(e.target===this) closeAccLightbox(); });
+document.getElementById('prodModal').addEventListener('click', function(e){ if(e.target===this) closeProdModal(); });
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){ closeAccLightbox(); closeProdModal(); }
+});
+</script>
 
 </body>
 </html>

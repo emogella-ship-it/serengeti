@@ -951,3 +951,52 @@ body::after {
   opacity: 1;
   transform: translateY(0);
 }
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  .hero-content h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .hero-sub {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .services-grid,
+  .gallery-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .acc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prod-modal-inner {
+    max-width: 95%;
+  }
+
+  .prod-modal-body {
+    padding: 1rem;
+  }
+
+  nav ul {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
