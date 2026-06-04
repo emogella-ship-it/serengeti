@@ -123,8 +123,35 @@
     }
     .prod-modal-img {
       width:100%; aspect-ratio:4/3; object-fit:cover;
-      border-radius:20px 20px 0 0; display:block;
+      border-radius:20px; display:block;
     }
+    .prod-modal-gallery {
+      display:flex; align-items:center; justify-content:center;
+      gap:1rem; padding:1.5rem 1.5rem 0;
+    }
+    .prod-modal-img-wrap {
+      width:100%; max-width:520px;
+    }
+    .img-nav {
+      width:42px; height:42px; border-radius:50%; border:none;
+      background:rgba(255,255,255,0.12); color:#fff;
+      font-size:1.5rem; display:inline-flex; align-items:center;
+      justify-content:center; cursor:pointer;
+      transition:transform 0.2s ease, background 0.2s ease;
+    }
+    .img-nav:hover { transform:scale(1.05); background:rgba(255,255,255,0.2); }
+    .prod-modal-thumbs {
+      display:flex; gap:.75rem; padding:1rem 1.5rem 0; overflow-x:auto;
+    }
+    .prod-modal-thumb {
+      width:76px; min-width:76px; height:60px;
+      border-radius:14px; overflow:hidden; border:2px solid transparent;
+      cursor:pointer; padding:0; background:transparent;
+    }
+    .prod-modal-thumb img {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .prod-modal-thumb.active { border-color:var(--accent); transform:scale(1.03); }
     .prod-modal-body { padding:2rem; }
     .prod-modal-name {
       font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800;
@@ -199,7 +226,7 @@
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(4)">Order Now</button>
       </div>
       <div class="acc-card" onclick="openProduct(5)">
-        <img src="images/accessories/earpods.jpg.jpg" alt="Earpods"/>
+        <img src="images/accessories/earpods.jpg" alt="Earpods"/>
         <div class="acc-card-label">🎧 Earpods</div>
         <button type="button" class="acc-order-btn" onclick="event.stopPropagation(); openProduct(5)">Order Now</button>
       </div>
@@ -229,7 +256,14 @@
 <div class="prod-modal" id="prodModal">
   <div class="prod-modal-inner">
     <button class="prod-modal-close" onclick="closeProdModal()">✕</button>
-    <img class="prod-modal-img" id="prodModalImg" src="" alt="" />
+    <div class="prod-modal-gallery">
+      <button class="img-nav prev" type="button" onclick="changeModalImage(-1)" aria-label="Previous image">‹</button>
+      <div class="prod-modal-img-wrap">
+        <img class="prod-modal-img" id="prodModalImg" src="" alt="" />
+      </div>
+      <button class="img-nav next" type="button" onclick="changeModalImage(1)" aria-label="Next image">›</button>
+    </div>
+    <div class="prod-modal-thumbs" id="prodModalThumbs"></div>
     <div class="prod-modal-body">
       <div class="prod-modal-name" id="prodModalName"></div>
       <div class="prod-modal-price" id="prodModalPrice"></div>

@@ -487,7 +487,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const products = [
   {
     name: '🔋 Phone Battery',
-    img: 'images/accessories/batter.png',
+    imgs: ['images/accessories/battery.jpg', 'images/accessories/accessories.jpg'],
     price: 'From TSh 8,000',
     specs: [
       'Compatible with Samsung, iPhone, Tecno, Infinix & more',
@@ -499,7 +499,7 @@ const products = [
   },
   {
     name: '✨ Chemli',
-    img: 'images/accessories/chemli.png',
+    imgs: ['images/accessories/chemli.jpg', 'images/accessories/accessories.jpg'],
     price: 'Ask for Price',
     specs: [
       'Premium quality product',
@@ -511,7 +511,7 @@ const products = [
   },
   {
     name: '💡 Fume Light',
-    img: 'images/accessories/fumeligt.png',
+    imgs: ['images/accessories/fume-light.jpg', 'images/accessories/accessories.jpg'],
     price: 'Ask for Price',
     specs: [
       'Portable and rechargeable',
@@ -523,7 +523,7 @@ const products = [
   },
   {
     name: '🖥️ Phone & PC Stand',
-    img: 'images/accessories/phone-pcstand.png',
+    imgs: ['images/accessories/stand.jpg', 'images/accessories/accessories.jpg'],
     price: 'From TSh 10,000',
     specs: [
       'Adjustable height and angle',
@@ -535,7 +535,7 @@ const products = [
   },
   {
     name: '⚡ Charger',
-    img: 'images/accessories/charger.png',
+    imgs: ['images/accessories/charger.jpg', 'images/accessories/accessories.jpg'],
     price: 'From TSh 5,000',
     specs: [
       'Fast charging support (18W–65W)',
@@ -547,7 +547,7 @@ const products = [
   },
   {
     name: '🎧 Earpods',
-    img: 'images/accessories/earpods.jpg',
+    imgs: ['images/accessories/earpods.jpg', 'images/accessories/accessories.jpg'],
     price: 'From TSh 6,000',
     specs: [
       'Crystal clear stereo sound',
@@ -559,7 +559,7 @@ const products = [
   },
   {
     name: '🛍️ Other Accessories',
-    img: 'images/accessories/others.png',
+    imgs: ['images/accessories/accessories.jpg', 'images/accessories/charger.jpg'],
     price: 'Various Prices',
     specs: [
       'Screen protectors (tempered glass)',
@@ -571,7 +571,7 @@ const products = [
   },
   {
     name: '⌚ Smart Watch',
-    img: 'images/accessories/smartwach.png',
+    imgs: ['images/accessories/smartwatch.jpg', 'images/accessories/accessories.jpg'],
     price: 'From TSh 35,000',
     specs: [
       'Heart rate & fitness tracking',
@@ -582,6 +582,9 @@ const products = [
     ]
   }
 ];
+
+let currentProductImages = [];
+let currentImageIndex = 0;
 
 /* OPEN PRODUCT MODAL */
 function openProduct(index) {
@@ -597,8 +600,10 @@ function openProduct(index) {
 
   if (!prodModalImg || !prodModalName || !prodModalPrice || !specsList || !prodModalOrder || !prodModal) return;
 
-  prodModalImg.src = product.img;
-  prodModalImg.alt = product.name;
+  const images = Array.isArray(product.imgs) ? product.imgs : [product.imgs || product.img];
+  currentProductImages = images.filter(Boolean);
+  currentImageIndex = 0;
+  renderProductGallery(currentProductImages, product.name);
   prodModalName.textContent = product.name;
   prodModalPrice.textContent = product.price;
   specsList.innerHTML = '';
@@ -616,6 +621,49 @@ function openProduct(index) {
 
   prodModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function renderProductGallery(images, productName) {
+  const prodModalImg = document.getElementById('prodModalImg');
+  const prodModalThumbs = document.getElementById('prodModalThumbs');
+  if (!prodModalImg || !prodModalThumbs) return;
+
+  prodModalThumbs.innerHTML = '';
+  if (!images.length) {
+    prodModalImg.src = '';
+    prodModalImg.alt = productName || 'Product image';
+    return;
+  }
+
+  images.forEach((src, index) => {
+    const thumbBtn = document.createElement('button');
+    thumbBtn.type = 'button';
+    thumbBtn.className = 'prod-modal-thumb' + (index === currentImageIndex ? ' active' : '');
+    thumbBtn.innerHTML = `<img src="${src}" alt="${productName} image ${index + 1}" />`;
+    thumbBtn.addEventListener('click', () => setModalImage(index));
+    prodModalThumbs.appendChild(thumbBtn);
+  });
+
+  setModalImage(currentImageIndex);
+}
+
+function setModalImage(index) {
+  if (!currentProductImages.length) return;
+  currentImageIndex = ((index % currentProductImages.length) + currentProductImages.length) % currentProductImages.length;
+
+  const prodModalImg = document.getElementById('prodModalImg');
+  const thumbs = document.querySelectorAll('.prod-modal-thumb');
+  if (prodModalImg) {
+    prodModalImg.src = currentProductImages[currentImageIndex];
+    prodModalImg.alt = `Product image ${currentImageIndex + 1}`;
+  }
+
+  thumbs.forEach((thumb, idx) => thumb.classList.toggle('active', idx === currentImageIndex));
+}
+
+function changeModalImage(direction) {
+  if (!currentProductImages.length) return;
+  setModalImage(currentImageIndex + direction);
 }
 
 /* CLOSE MODAL */
