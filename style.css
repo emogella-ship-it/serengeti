@@ -78,7 +78,7 @@ nav.scrolled { padding: 0.8rem 6%; }
 }
 .nav-cta:hover { background: var(--accent2) !important; color: var(--bg) !important; }
 
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger { display: none; position: relative; z-index: 120; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { width: 26px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
 
 /* ── MOBILE MENU ── */
@@ -795,7 +795,7 @@ footer p { color: var(--muted); font-size: 0.85rem; }
   .about-floating { display: none; }
   .form-row { grid-template-columns: 1fr; }
   nav .nav-links { display: none; }
-  .hamburger { display: flex; }
+  .hamburger { display: flex !important; }
   .hero-stats { gap: 1.5rem; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .acc-grid { grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); }
