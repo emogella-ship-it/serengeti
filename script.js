@@ -332,14 +332,45 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
+function openAccLightbox() {
+  const lightbox = document.getElementById('accLightbox');
+  if (lightbox) {
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeAccLightbox() {
+  const lightbox = document.getElementById('accLightbox');
+  if (lightbox) {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function closeProdModal() {
+  const modal = document.getElementById('prodModal');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
 document.addEventListener('click', (e) => {
   const lb = document.getElementById('lightbox');
+  const accLightbox = document.getElementById('accLightbox');
+  const prodModal = document.getElementById('prodModal');
+
   if (lb && e.target === lb) closeLightbox();
+  if (accLightbox && e.target === accLightbox) closeAccLightbox();
+  if (prodModal && e.target === prodModal) closeProdModal();
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeLightbox();
+    closeAccLightbox();
+    closeProdModal();
     const menu = document.getElementById('mobileMenu');
     if (menu && menu.classList.contains('open')) {
       menu.classList.remove('open');
@@ -455,79 +486,143 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 ══════════════════════════════════════════════ */
 const products = [
   {
-    name: "Chemli",
-    price: "Ask for Price",
-    img: "images/accessories/chemli.png",
+    name: '🔋 Phone Battery',
+    img: 'images/accessories/batter.png',
+    price: 'From TSh 8,000',
     specs: [
-      "Premium quality product",
-      "Durable and long-lasting build",
-      "Compatible with multiple devices",
-      "Available in various styles",
-      "Contact us for full details"
+      'Compatible with Samsung, iPhone, Tecno, Infinix & more',
+      'High-capacity original quality cells',
+      'Long-lasting charge cycle life',
+      'Safe overcharge & temperature protection',
+      'Available for most phone models'
     ]
   },
   {
-    name: "Battery",
-    price: "Ask for Price",
-    img: "images/accessories/batter.png",
-    specs: ["High quality battery", "Long life"]
+    name: '✨ Chemli',
+    img: 'images/accessories/chemli.png',
+    price: 'Ask for Price',
+    specs: [
+      'Premium quality product',
+      'Durable and long-lasting build',
+      'Compatible with multiple devices',
+      'Available in various styles',
+      'Contact us for full details'
+    ]
   },
   {
-    name: "Fume Light",
-    price: "Ask for Price",
-    img: "images/accessories/fumeligt.png",
-    specs: ["Bright light", "Energy saving"]
+    name: '💡 Fume Light',
+    img: 'images/accessories/fumeligt.png',
+    price: 'Ask for Price',
+    specs: [
+      'Portable and rechargeable',
+      'Bright LED output',
+      'USB charging support',
+      'Compact and lightweight design',
+      'Ideal for home and outdoor use'
+    ]
   },
   {
-    name: "Phone Stand",
-    price: "Ask for Price",
-    img: "images/accessories/phone-pcstand.png",
-    specs: ["Adjustable", "Strong build"]
+    name: '🖥️ Phone & PC Stand',
+    img: 'images/accessories/phone-pcstand.png',
+    price: 'From TSh 10,000',
+    specs: [
+      'Adjustable height and angle',
+      'Compatible with phones, tablets & laptops',
+      'Anti-slip base for stability',
+      'Foldable and portable design',
+      'Reduces neck and eye strain'
+    ]
   },
   {
-    name: "Charger",
-    price: "Ask for Price",
-    img: "images/accessories/charger.png",
-    specs: ["Fast charging", "Safe use"]
+    name: '⚡ Charger',
+    img: 'images/accessories/charger.png',
+    price: 'From TSh 5,000',
+    specs: [
+      'Fast charging support (18W–65W)',
+      'Compatible with USB-C, Micro-USB & Lightning',
+      'Universal voltage (100–240V)',
+      'Built-in surge protection',
+      'Available: wall charger, car charger & travel adapters'
+    ]
   },
   {
-    name: "Earpods",
-    price: "Ask for Price",
-    img: "images/accessories/earpods.jpg",
-    specs: ["Clear sound", "Comfortable"]
+    name: '🎧 Earpods',
+    img: 'images/accessories/earpods.jpg',
+    price: 'From TSh 6,000',
+    specs: [
+      'Crystal clear stereo sound',
+      'Wired & wireless (Bluetooth) options',
+      'Built-in microphone for calls',
+      'Comfortable ergonomic fit',
+      'Compatible with all smartphones'
+    ]
   },
   {
-    name: "Smart Watch",
-    price: "Ask for Price",
-    img: "images/accessories/smartwach.png",
-    specs: ["Fitness tracking", "Bluetooth"]
+    name: '🛍️ Other Accessories',
+    img: 'images/accessories/others.png',
+    price: 'Various Prices',
+    specs: [
+      'Screen protectors (tempered glass)',
+      'Phone cases for all brands',
+      'Memory cards (original quality)',
+      'USB cables (fast charging)',
+      'Contact us for full product list'
+    ]
+  },
+  {
+    name: '⌚ Smart Watch',
+    img: 'images/accessories/smartwach.png',
+    price: 'From TSh 35,000',
+    specs: [
+      'Heart rate & fitness tracking',
+      'Bluetooth call & notification support',
+      'Water resistant design',
+      'Long battery life (5–7 days)',
+      'Compatible with Android & iOS'
+    ]
   }
 ];
 
 /* OPEN PRODUCT MODAL */
 function openProduct(index) {
   const product = products[index];
+  if (!product) return;
 
-  document.getElementById("prodModalImg").src = product.img;
-  document.getElementById("prodModalName").textContent = product.name;
-  document.getElementById("prodModalPrice").textContent = product.price;
+  const prodModalImg = document.getElementById('prodModalImg');
+  const prodModalName = document.getElementById('prodModalName');
+  const prodModalPrice = document.getElementById('prodModalPrice');
+  const specsList = document.getElementById('prodModalSpecs');
+  const prodModalOrder = document.getElementById('prodModalOrder');
+  const prodModal = document.getElementById('prodModal');
 
-  const specsList = document.getElementById("prodModalSpecs");
-  specsList.innerHTML = "";
+  if (!prodModalImg || !prodModalName || !prodModalPrice || !specsList || !prodModalOrder || !prodModal) return;
+
+  prodModalImg.src = product.img;
+  prodModalImg.alt = product.name;
+  prodModalName.textContent = product.name;
+  prodModalPrice.textContent = product.price;
+  specsList.innerHTML = '';
 
   product.specs.forEach(spec => {
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.textContent = spec;
     specsList.appendChild(li);
   });
 
-  document.getElementById("prodModalOrder").href =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=I want ${product.name}`;
+  const waMsg = encodeURIComponent(
+    `Hello EmStanTech! 👋\nI am interested in: *${product.name}*\nPlease send me more details and availability.\n_Sent from MogxTech website_`
+  );
+  prodModalOrder.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
 
-  document.getElementById("prodModal").classList.add("open");
+  prodModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 /* CLOSE MODAL */
 function closeProdModal() {
-  document.getElementById("prodModal").classList.remove("open");
+  const modal = document.getElementById('prodModal');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 }
